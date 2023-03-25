@@ -1,6 +1,8 @@
+import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import ToDoItem from './ToDoItem';
+import ToDoItem from './ToDoList/ToDoItem.jsx';
+
 
 
 function ToDoList() {
@@ -8,11 +10,13 @@ function ToDoList() {
     const [taskMinutes, setTaskMinutes] = useState('');
     const [taskDone, setTaskDone] = useState('');
     const [listToDo, setListToDo] = useState([]);
-    const fetchTodoList = () => {
-       
-}
+    
+    
+    
 
-     axios.get('/toDoList').then((response) => {
+//GET
+const fetchToDoList = () => {
+    axios.get('/toDoList').then((response) => {
         //update the array
         setListToDo(response.data);
     }).catch((error) => {
@@ -25,6 +29,8 @@ useEffect(() => {
     fetchToDoList();
 }, []);
 
+
+//POST
 const submitForm = (e) => {
     e.preventDefault();
     axios.post('/todolist', {
@@ -45,7 +51,7 @@ const submitForm = (e) => {
 
 return (
         <> 
-            <h3>Add a Task To Do </h3>
+            <h3>To Do LIst </h3>
         <form onSubmit={submitForm}>
                <th> Description:<input type="text"
                     value={taskDescription}
@@ -61,15 +67,16 @@ return (
                 
             <br/>
                 Done: 
+                value={taskDone}
             <input className="submitButton"type="submit" />
         </form>
         <ul>
             {
                 listToDo.map((task) => (
                     <li key={task.id}>
-                       description={description.taskDescription} 
-                       minutes={minutes.taskMinutes}
-                       done={done.taskDone}
+                       Description={ToDoList.taskDescription} 
+                       Minutes={ToDoList.taskMinutes}
+                       Done={ToDoList.taskDone}
                        fetchToDoList={fetchToDoList}
                     </li>
                 ))
@@ -80,8 +87,7 @@ return (
 
     );
 
-
-// }//Ends function
+} //Ends function
 
 
 
