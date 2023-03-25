@@ -31,8 +31,8 @@ router.get('/', (req, res) => {
 // the $1, $2, etc get substituted with the values from the array below
 router.post('/', (req, res) => {
     const AddTask = req.body;
-    const queryText =`INSERT INTO toDoList (description, minutes)
-                     VALUES ($1, $2)`;
+    const queryText =`INSERT INTO toDoList (description, minutes, done)
+                     VALUES ($1, $2, $3)`;
     pool.query(queryText, [AddTask.description, AddTask.minutes])
         .then((result) => {
             console.log(`Added toDoList to the database`, toDoArray);
@@ -47,7 +47,7 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => {
     console.log('In PUT request');
 let taskId = req.params.id;
-let taskToEdit = req.body;
+let taskToEdit = req.params.body;
 let queryText = 'UPDATE "toDoList" SET "description" = $1, "minutes" = $2, "done" = $3';
 pool.query(queryText, [taskToEdit.taskDescription, taskToEdit.minutes, taskToEdit.taskDone ]).then((result) => {
     res.sendStatus(200);
