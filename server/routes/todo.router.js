@@ -2,7 +2,10 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool.js');
 
-// let toDoArray =[];
+
+// Data base connection
+let toDoArray =[];
+
 // GET
 // When you fetch all things in these GET routes, strongly encourage ORDER BY
     // so that things always come back in a consistent order 
@@ -21,7 +24,7 @@ router.get('/', (req, res) => {
             res.sendStatus(500); // Good server always responds
         })
 })
-let toDoArray =[];
+// let toDoArray =[];
 //POST
 //Setup a POST route to add a new creature to the database
 // Let sql sanitize your inputs (NO Bobby Drop Tables here!)

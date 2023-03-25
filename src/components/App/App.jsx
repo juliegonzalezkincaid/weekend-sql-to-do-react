@@ -7,11 +7,13 @@ import Header from '../Header/Header.jsx'
 import axios from 'axios';
 
 function App () {
-  
+  const[headerText, setHeaderText] = useState('')
   return (
     <div>
+      {/* headerTextProp is the name of our prop 
+      {headerText} is the value we are assigning to the prop*/}
       <h1>TO DO APP</h1>
-      <Header/>
+      <Header headerTextProp={headerText}/>
       <AddTask/>
       {/* <DeleteTask/> */}
     </div>
