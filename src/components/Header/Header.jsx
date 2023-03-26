@@ -11,6 +11,7 @@ function Header({ textColor, headerText, someOtherThing }) {
         <header>
             <h1 style={{color: textColor}}>
                 {headerText}
+                To Do List
             </h1>
             <h2>{someOtherThing}</h2>
         </header>

@@ -39,6 +39,12 @@ const getDecoration = () => {
 }
 return (
     <>
+    <button className='done-button' onClick={(e) =>checkDone (e)} >Check Done 
+    </button>
+
+    <button className='delete-button' onClick={(e) => deleteTask(e)} > 
+
+    </button>
     </>
 )
 

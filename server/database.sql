@@ -1,4 +1,4 @@
-CREATE TABLE "toDoList" (
+CREATE TABLE "todoList" (
 			"id" SERIAL PRIMARY KEY,
 			"description" VARCHAR (800) NOT NULL,
 			"minutes" DECIMAL (50) NOT NULL,

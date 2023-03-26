@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const pool = require('../modules/pool.js');
+const pool = require('../modules/pool');
 
 
-// Data base connection
+// Data base connection weekend-to-do-app
 let toDoArray =[];
 
 // GET
@@ -12,28 +12,28 @@ let toDoArray =[];
     
 router.get('/', (req, res) => {
     
-    console.log(`Get request for /toDoList`);
-    let queryText = `SELECT * FROM "toDoList"`;
+    console.log(`Get request for /todoList`);
+    let queryText = `SELECT * FROM "todoList"`;
     pool.query(queryText)
         .then((result) => {
             console.log(`Got stuff back from the database`, result);
             res.send(result.rows);
         })
         .catch((error) => {
-            console.log(`Error making database query ${queryText}`, error);
+            console.log(`Error making database query , ${error}`);
             res.sendStatus(500); // Good server always responds
         })
 })
-// let toDoArray =[];
+
 //POST
-//Setup a POST route to add a new creature to the database
-// Let sql sanitize your inputs (NO Bobby Drop Tables here!)
-// the $1, $2, etc get substituted with the values from the array below
+//Setup a POST route to add a new task to the database
+
 router.post('/', (req, res) => {
-    const AddTask = req.body;
-    const queryText =`INSERT INTO toDoList (description, minutes, done)
+    const task = req.body;
+    const queryText =`INSERT INTO "todoList" (taskdescription, taskminutes, taskdone)
                      VALUES ($1, $2, $3)`;
-    pool.query(queryText, [AddTask.description, AddTask.minutes])
+        let values =[task.description, task.minutes, task.done]         
+    pool.query(queryText, values)
         .then((result) => {
             console.log(`Added toDoList to the database`, toDoArray);
             res.sendStatus(201);
@@ -44,12 +44,19 @@ router.post('/', (req, res) => {
         })
 })
 // PUT
+//Take updates from  DOM, send to DB to be udpated and then resent to DOM
 router.put('/:id', (req, res) => {
     console.log('In PUT request');
-let taskId = req.params.id;
-let taskToEdit = req.params.body;
-let queryText = 'UPDATE "toDoList" SET "description" = $1, "minutes" = $2, "done" = $3';
-pool.query(queryText, [taskToEdit.taskDescription, taskToEdit.minutes, taskToEdit.taskDone ]).then((result) => {
+
+let taskToEdit = req.body;
+let taskDone;
+if (taskToEdit.taskDone === false) {
+    taskDone = true      
+} else if ( taskToEdit.taskDone === true) {
+    taskDone = false
+}
+let queryText = 'UPDATE "todoList" SET "description" = $1, "minutes" = $2, "done" = $3';
+pool.query(queryText, [taskToEdit.id]).then((result) => {
     res.sendStatus(200);
 }).catch((error) => {
     console.log(`Error in PUT: ${error} `);
@@ -61,7 +68,7 @@ pool.query(queryText, [taskToEdit.taskDescription, taskToEdit.minutes, taskToEdi
 // DELETE
 router.delete('/:id', (req, res) => {
     const deleteIndex = Number(req.params.id);
-    let queryText = `DELETE FROM "toDoList" WHERE "id" = $1`;
+    let queryText = `DELETE FROM "todoList" WHERE "id" = $1`;
     pool.query(queryText, [deleteIndex]).then((result) => {
     res.sendStatus(200);
 }).catch((error) => {

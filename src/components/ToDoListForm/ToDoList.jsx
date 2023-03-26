@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import ToDoItem from './ToDoList/ToDoItem.jsx';
+import ToDoItem from './ToDoListForm/ToDoItem.jsx.js';
 
 
 
@@ -16,7 +16,7 @@ function ToDoList() {
 
 //GET
 const fetchToDoList = () => {
-    axios.get('/toDoList').then((response) => {
+    axios.get('/todolist').then((response) => {
         //update the array
         setListToDo(response.data);
     }).catch((error) => {
@@ -44,8 +44,8 @@ const submitForm = (e) => {
         setTaskDone('');
         fetchToDoList(); //calls the object
     }).catch((error) => {
-        console.log(`Error in POST on TaskList: ${error}`);
-        alert('Something wrong in POST on TaskList');
+        console.log(`Error in POST on ToDoList: ${error}`);
+        alert('Something wrong in POST on ToDoList');
     })
 };
 
@@ -73,12 +73,13 @@ return (
         <ul>
             {
                 listToDo.map((task) => (
-                    <li key={task.id}>
+                    < ToDoItem
+                       key={task.id}
                        Description={ToDoList.taskDescription} 
                        Minutes={ToDoList.taskMinutes}
                        Done={ToDoList.taskDone}
                        fetchToDoList={fetchToDoList}
-                    </li>
+                    />
                 ))
             };
         </ul>
