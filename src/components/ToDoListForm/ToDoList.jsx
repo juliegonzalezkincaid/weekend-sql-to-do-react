@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import ToDoItem from './ToDoListForm/ToDoItem.jsx.js';
+import ToDoItem from './ToDoItem';
 
 
 
@@ -16,9 +16,10 @@ function ToDoList() {
 
 //GET
 const fetchToDoList = () => {
-    axios.get('/todolist').then((response) => {
+    axios.get('/todoList').then((response) => {
         //update the array
         setListToDo(response.data);
+        console.log(listToDo)
     }).catch((error) => {
         console.log(`Error in GET ${error}`);
         alert('Something is wrong.');
@@ -33,8 +34,8 @@ useEffect(() => {
 //POST
 const submitForm = (e) => {
     e.preventDefault();
-    axios.post('/todolist', {
-        taskdescription: taskDescription,
+    axios.post('/todoList', {
+        description: taskDescription,
         minutes: taskMinutes,
         done: false,
     }).then((response) => {
@@ -50,40 +51,37 @@ const submitForm = (e) => {
 };
 
 return (
-        <> 
-            <h3>To Do LIst </h3>
+        <div id="list"> 
+            <h3>To Do List </h3>
         <form onSubmit={submitForm}>
-               <th> Description:<input type="text"
+               Description:<input type="text"
                     value={taskDescription}
                     onChange={(e) => setTaskDescription(e.target.value)}
-                /></th>
+               /> 
             
             <br/>
 
-                <th>Minutes: <input type="text"
+               Minutes: <input type="number"
                     value={taskMinutes}
                     onChange={(e) => setTaskMinutes(e.target.value)}
-             /></th>
+            
+               /> 
+            <br />
+                <li className ="checked"> Done: </li> 
                 
-            <br/>
-                Done: 
-                value={taskDone}
             <input className="submitButton"type="submit" />
         </form>
         <ul>
-            {
-                listToDo.map((task) => (
+            {listToDo.map((task) => (
                     < ToDoItem
                        key={task.id}
-                       Description={ToDoList.taskDescription} 
-                       Minutes={ToDoList.taskMinutes}
-                       Done={ToDoList.taskDone}
+                       task={task}
                        fetchToDoList={fetchToDoList}
                     />
                 ))
-            };
+            }
         </ul>
-        </>
+        </div>
 
 
     );

@@ -2,7 +2,7 @@
 import React from 'react';
 import './App.css';
 import Header from '../Header/Header';
-// import ToDoList from './ToDoList';
+import ToDoList from '../ToDoListForm/ToDoList';
 
 function App () {
   
@@ -13,7 +13,7 @@ function App () {
       <h1>TO DO APP</h1>
       <Header />
   
-      {/* <ToDoList /> */}
+     <ToDoList />
       {/* <DeleteTask/> */}
     </div>
 

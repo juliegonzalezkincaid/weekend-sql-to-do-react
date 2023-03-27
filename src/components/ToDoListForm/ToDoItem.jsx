@@ -2,7 +2,7 @@ import axios from 'axios'
 import {useState} from 'react'
 
 
-function ToDoItem ({ task, fetchToDoList}) {
+function ToDoItem ({task, fetchToDoList}) {
     const[done, setTaskDone] = useState("Nope")
 
 
@@ -39,10 +39,14 @@ const getDecoration = () => {
 }
 return (
     <>
+    <p>{task.description}</p>
+    <p>{task.minutes}</p>
+    <p>{task.done}</p>
     <button className='done-button' onClick={(e) =>checkDone (e)} >Check Done 
+
     </button>
 
-    <button className='delete-button' onClick={(e) => deleteTask(e)} > 
+    <button className='delete-button' onClick={(e) => deleteTask(e)} >Delete 
 
     </button>
     </>

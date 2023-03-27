@@ -5,5 +5,5 @@ CREATE TABLE "todoList" (
 			"done" BOOLEAN DEFAULT FALSE
 );
 
-INSERT INTO "toDoList" ("id","description", "minutes", "done")
+INSERT INTO "todoList" ("id","description", "minutes", "done")
 VALUES ('Make Bed', 2, 'true'), ('Brush Teeth', 2 , 'true'), ( 'Practice French', 10, 'true'), ('Clean', 20, 'true'),('Make Austin Breakfast', 10,'false');
