@@ -1,5 +1,6 @@
 .banner-header {
     background-color: silver;
-    text-align: center;
+    /* text-align:; */
     padding: 0.25em;
+    font-size: larger;
   }

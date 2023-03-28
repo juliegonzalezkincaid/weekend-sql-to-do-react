@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ToDoItem from './ToDoItem';
-
+// import '../App/App.css';
 
 
 function ToDoList() {
@@ -32,12 +32,14 @@ useEffect(() => {
 
 
 //POST
+
+
 const submitForm = (e) => {
     e.preventDefault();
     axios.post('/todoList', {
         description: taskDescription,
         minutes: taskMinutes,
-        done: false,
+        taskDone: false,
     }).then((response) => {
         //clear inputs
         setTaskDescription('');
@@ -51,25 +53,46 @@ const submitForm = (e) => {
 };
 
 return (
+
+   
+
+
+
+
         <div id="list"> 
-            <h3>To Do List </h3>
+            <h3>My To Do List </h3>
         <form onSubmit={submitForm}>
-               Description:<input type="text"
+            <div className='formContainer'>
+                <div className='formItems'>
+
+               
+                <h3>
+                    Description
+                </h3>
+                <input type="text"
                     value={taskDescription}
                     onChange={(e) => setTaskDescription(e.target.value)}
                /> 
-            
-            <br/>
+               </div>
+               <div className='formItems'>
 
-               Minutes: <input type="number"
+             
+               <h3>Minutes</h3>
+               <input type="text"
                     value={taskMinutes}
                     onChange={(e) => setTaskMinutes(e.target.value)}
-            
                /> 
-            <br />
-                <li className ="checked"> Done: </li> 
-                
-            <input className="submitButton"type="submit" />
+                 </div>
+                 <div className='formitems'>
+               <input className="submitButton"type="submit" />
+               </div>
+            </div>
+               
+
+
+ 
+            
+            {/* <button onClick="myFunction()">checkbox</button> */}
         </form>
         <ul>
             {listToDo.map((task) => (
@@ -77,6 +100,7 @@ return (
                        key={task.id}
                        task={task}
                        fetchToDoList={fetchToDoList}
+
                     />
                 ))
             }

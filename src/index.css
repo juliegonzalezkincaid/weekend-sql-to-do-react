@@ -1,5 +1,44 @@
-body {
-  margin: 0;
-  padding: 0;
+ body {
+ 
+  /* padding: 0; */
   font-family: sans-serif;
+  text-align: center;
+  margin: 30px;
+ }
+ #list {
+ font-size: 20px;
+ background: lightslategray;
+ /* padding: 30px 30px 15px 30px; */
+ border: 5px solid darkcyan;
+ font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+ text-align: center;
+}
+
+
+li {
+border: 3px solid black;
+ margin: 15px;
+ background-color:cadetblue;
+ width: auto;
+ text-align: center;
+ display: inline-block;
+ /* padding: 5px; */
+}
+
+#label{
+  text-decoration: wavy;
+  text-align:top;
+  color:white;
+  font-family: 'Source Code Pro', monospace;
+  text-transform:uppercase;
+}
+.formContainer{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.formItems{
+  margin: 10px;
+  display: flex;
 }

@@ -5,16 +5,18 @@ import './Header.css';
 // component as an argument.
 // Destructuring
 // const { textColor, headerText, someOtherThing } = props;
-function Header({ textColor, headerText, someOtherThing }) {
+function Header() {
 
     return (
-        <header>
-            <h1 style={{color: textColor}}>
-                {headerText}
+        <div> 
+        
+            <h1 >
+                
                 To Do List
             </h1>
-            <h2>{someOtherThing}</h2>
-        </header>
+           
+        
+        </div>
     );
 }
 

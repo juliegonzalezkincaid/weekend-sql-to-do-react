@@ -13,7 +13,7 @@ let toDoArray =[];
 router.get('/', (req, res) => {
     
     console.log(`Get request for /todoList`);
-    let queryText = `SELECT * FROM "todoList"`;
+    let queryText = `SELECT * FROM "todoList" ORDER BY id DESC`;
     pool.query(queryText)
         .then((result) => {
             // console.log(`Got stuff back from the database`, result);
@@ -51,14 +51,15 @@ router.put('/:id', (req, res) => {
     console.log('In PUT request');
 let taskId = req.params.id;
 let taskToEdit = req.body;
-let taskDone;
-if (taskToEdit.taskDone === false) {
-    taskDone = true      
-} else if ( taskToEdit.taskDone === true) {
-    taskDone = false
+console.log(taskToEdit)
+let toggle;
+if (taskToEdit.done === false) {
+    toggle= true      
+} else if ( taskToEdit.done === true) {
+    toggle = false
 }
-let values= [taskToEdit.id , taskDone, taskId]
-let queryText = 'UPDATE "todoList" SET "description" = $1, "minutes" = $2, "done" = $3';
+let values= [ toggle, taskId]
+let queryText = 'UPDATE "todoList" SET "done" = $1 WHERE "id" = $2' ;
 pool.query(queryText,values ).then((result) => {
     res.sendStatus(200);
 }).catch((error) => {

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {useState} from 'react'
-
+import '../App/App.css';
 
 function ToDoItem ({task, fetchToDoList}) {
     const[done, setTaskDone] = useState("Nope")
@@ -9,7 +9,9 @@ function ToDoItem ({task, fetchToDoList}) {
 //PUT
 const checkDone =(e) => {
     console.log(task.id)
-    axios.put(`/todolist/${task.id}`, task).then(response => {fetchToDoList();
+    axios.put(`/todolist/${task.id}`, task).then(response => {
+        setTaskDone(true);
+        fetchToDoList();
     }).catch((error) => {
         console.log(`Error in checkDone ${error} `);
         alert('Something wrong in checkDone.');
@@ -18,6 +20,7 @@ const checkDone =(e) => {
 
 
 //DELETE
+
 const deleteTask =(e) => { 
     console.log(`delete task ${task.id}`);
     axios.delete(`/todolist/${task.id}`).then((response) => {
@@ -28,27 +31,49 @@ const deleteTask =(e) => {
     
     })
 }//end of delete function
+let taskDone;
+    if (task.taskDone === true) {
+        taskDone = "Yes"
+    } else if (task.taskDone=== false) {
+         taskDone= "No"
+    }; 
+
+//! This will change the background color of the <li> depending on taskDone
+const changeColor = () => {
+    if (taskDone === "Yes") {
+        return 'green'
+    } else {
+        return 'none'
+    };
+} //end changeColor()
 
 //LINE THROUGH DECORATION
-const getDecoration = () => {
-    if(task.complete === true) {
-        return 'line-through';
-    }else {
-        return 'none';
-    }
+// const getDecoration = () => {
+//     if(task.complete === true) {
+//         return 'line-through';
+//     }else {
+//         return 'none';
+//     }
+// }
+let toggle
+if (task.done=== true) {
+toggle= 'no'
+
+} else if (task.done=== false){
+    toggle= 'yes'
 }
 return (
     <>
+    <li style={{backgroundColor: changeColor()}} className='toDoItem'>
     <p>{task.description}</p>
     <p>{task.minutes}</p>
-    <p>{task.done}</p>
-    <button className='done-button' onClick={(e) =>checkDone (e)} >Check Done 
-
-    </button>
-
-    <button className='delete-button' onClick={(e) => deleteTask(e)} >Delete 
-
-    </button>
+    <p>{toggle}</p>
+    
+    <button className='done-button' onClick={(e) =>checkDone (e)} >Check Done </button>
+  
+    <button className='delete-button' onClick= {(e) => deleteTask(e)}>Delete 
+       </button>
+</li>
     </>
 )
 
