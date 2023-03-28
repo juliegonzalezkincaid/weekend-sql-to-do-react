@@ -38,7 +38,7 @@ let taskDone;
          taskDone= "No"
     }; 
 
-//! This will change the background color of the <li> depending on taskDone
+
 const changeColor = () => {
     if (taskDone === "Yes") {
         return 'green'
@@ -47,14 +47,6 @@ const changeColor = () => {
     };
 } //end changeColor()
 
-//LINE THROUGH DECORATION
-// const getDecoration = () => {
-//     if(task.complete === true) {
-//         return 'line-through';
-//     }else {
-//         return 'none';
-//     }
-// }
 let toggle
 if (task.done=== true) {
 toggle= 'no'

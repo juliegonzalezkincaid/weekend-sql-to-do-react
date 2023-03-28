@@ -32,9 +32,9 @@ router.post('/', (req, res) => {
     console.log('julie')
     const task = req.body;
     console.log(req.body)
-    const queryText =`INSERT INTO "todoList" (description,minutes,done)   VALUES ($1, $2, $3)`;
+    const queryText =`INSERT INTO "todoList" (description,minutes)   VALUES ($1, $2)`;
 
-        let values =[task.description, task.minutes, task.done]         
+        let values =[task.description, task.minutes]         
     pool.query(queryText, values)
         .then((result) => {
             console.log(`Added todoList to the database`, toDoArray);
@@ -53,7 +53,7 @@ let taskId = req.params.id;
 let taskToEdit = req.body;
 console.log(taskToEdit)
 let toggle;
-if (taskToEdit.done === false) {
+if (taskToEdit.done === false || taskToEdit.done ===null) {
     toggle= true      
 } else if ( taskToEdit.done === true) {
     toggle = false
